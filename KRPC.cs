@@ -6,19 +6,18 @@ namespace DHT;
 public class KRPC
 {
     [KRPCName("t")]
-    public string TransactionID { get; private set; } = string.Empty;
+    public string TransactionID { get; set; } = string.Empty;
     [KRPCName("y")]
-    public string MsgType { get; private set; } = string.Empty;
+    public string MsgType { get; set; } = string.Empty;
     [KRPCName("q")]
-    public string Request { get; private set; } = string.Empty;
+    public string Request { get; set; } = string.Empty;
     [KRPCName("a")]
-    public Dictionary<string, object> Body { get; private set; } = new();
+    public Dictionary<string, object> Body { get; set; } = new();
     [KRPCName("r")]
-    public Dictionary<string, object> Response { get; private set; } = new();
+    public Dictionary<string, object> Response { get; set; } = new();
     [KRPCName("e")]
-    public ArrayList Error { get; private set; } = new();
-
-    private readonly Dictionary<string, string> _mapping = new(6);
+    public ArrayList Error { get; set; } = new();
+    public Dictionary<string, string> Mapping { get; private set; } = new(6);
 
     public bool IsRequest => MsgType == "q";
     public bool IsResponse => MsgType == "r";
@@ -32,7 +31,7 @@ public class KRPC
             var attrs = propertyInfo.GetCustomAttributes(typeof(KRPCNameAttribute), false);
             if (attrs.Length > 0 && attrs.First(x => x is KRPCNameAttribute) is KRPCNameAttribute attr)
             {
-                _mapping.Add(propertyInfo.Name, attr.Name);
+                Mapping.Add(propertyInfo.Name, attr.Name);
             }
         }
     }
@@ -40,7 +39,7 @@ public class KRPC
     public KRPC SendPing(string id)
     {
         var bytes = new byte[2];
-        using (var ctx=RandomNumberGenerator.Create())
+        using (var ctx = RandomNumberGenerator.Create())
         {
             ctx.GetBytes(bytes);
         }
@@ -60,28 +59,33 @@ public class KRPC
         return this;
     }
 
-    public KRPC FindNode(string id, string target)
+    public KRPC FindNode(byte[] id)
     {
-        id = Utils.HexToString(id);
-        target = Utils.HexToString(target);
-        TransactionID = Encoding.ASCII.GetString(new byte[] { 0, 1 });
+
+        var bytes = new byte[2];
+        using (var ctx = RandomNumberGenerator.Create())
+        {
+            ctx.GetBytes(bytes);
+        }
+        TransactionID = Encoding.ASCII.GetString(bytes);
         MsgType = "q";
         Request = "find_node";
+        var sID = Encoding.ASCII.GetString(id);
         if (Body.ContainsKey("id"))
         {
-            Body["id"] = id;
+            Body["id"] = sID;
         }
         else
         {
-            Body.Add("id", id);
+            Body.Add("id", sID);
         }
         if (Body.ContainsKey("target"))
         {
-            Body["target"] = target;
+            Body["target"] = Encoding.ASCII.GetString(new Node().Encode().ToArray());
         }
         else
         {
-            Body.Add("target", target);
+            Body.Add("target", Encoding.ASCII.GetString(new Node().Encode().ToArray()));
         }
 
         return this;
@@ -106,9 +110,9 @@ public class KRPC
     {
         return MsgType switch
         {
-            "q" => _mapping.Where(m => m.Value != "r" && m.Value != "e").ToDictionary(x => x.Key, x => x.Value),
-            "r" => _mapping.Where(m => m.Value != "q" && m.Value != "a" && m.Value != "e").ToDictionary(x => x.Key, x => x.Value),
-            "e" => _mapping.Where(m => m.Value != "q" && m.Value != "a" && m.Value != "r").ToDictionary(x => x.Key, x => x.Value),
+            "q" => Mapping.Where(m => m.Value != "r" && m.Value != "e").ToDictionary(x => x.Key, x => x.Value),
+            "r" => Mapping.Where(m => m.Value != "q" && m.Value != "a" && m.Value != "e").ToDictionary(x => x.Key, x => x.Value),
+            "e" => Mapping.Where(m => m.Value != "q" && m.Value != "a" && m.Value != "r").ToDictionary(x => x.Key, x => x.Value),
             _ => throw new Exception("不支持的消息类型!")
         };
     }

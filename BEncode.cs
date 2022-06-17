@@ -11,6 +11,7 @@ public readonly struct BEncode
     public const string List = "list";
     public const string Dictionary = "dictionary";
     public BEncode() : this(string.Empty) { }
+    public BEncode(ReadOnlySpan<byte> bytes):this(Encoding.ASCII.GetString(bytes)){}
     public BEncode(string source)
     {
         _root = new StringBuilder(source);
@@ -46,6 +47,7 @@ public readonly struct BEncode
         }
         return list;
     }
+
     /// <summary>
     /// 添加一个C#对象
     /// </summary>
