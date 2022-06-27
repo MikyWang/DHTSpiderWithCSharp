@@ -1,14 +1,12 @@
 namespace DHT;
 
-[AttributeUsage(AttributeTargets.Field | AttributeTargets.Property)]
+[AttributeUsage(AttributeTargets.Property)]
 public class KRPCNameAttribute : Attribute
 {
-    private readonly string _name;
-
-    public string Name => _name;
+    public string Name { get; }
     public KRPCNameAttribute(string name)
     {
-        _name = name;
+        Name = name;
     }
 
 }

@@ -11,7 +11,7 @@ public readonly struct BEncode
     public const string List = "list";
     public const string Dictionary = "dictionary";
     public BEncode() : this(string.Empty) { }
-    public BEncode(ReadOnlySpan<byte> bytes):this(Encoding.ASCII.GetString(bytes)){}
+    public BEncode(byte[] bytes) : this(bytes.GetString()) { }
     public BEncode(string source)
     {
         _root = new StringBuilder(source);

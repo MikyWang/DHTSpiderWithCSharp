@@ -8,7 +8,8 @@ public class RouteTable : BlockingCollection<Node>
 
     public RouteTable()
     {
-        CurrentNode = new Node();
+        var ip = Utils.GetPublicIP();
+        CurrentNode = new Node(ip);
     }
 
     public Node? Shift()
@@ -19,13 +20,25 @@ public class RouteTable : BlockingCollection<Node>
 
     public byte[] Neighbor(byte[] nodeID)
     {
-        return CurrentNode.ID[..6].Concat(nodeID[6..20]).ToArray();
+        return nodeID[..6].Concat(CurrentNode.ID[6..20]).ToArray();
     }
-    
-    public ReadOnlySpan<byte> NearestNodes()
+
+    public byte[] NearestNodes()
     {
-        var bytes = this.First().Encode();
-        bytes = this.Skip(1).Take(7).Aggregate(bytes, (current, node) => current.Concat(node.Encode()));
+        IEnumerable<byte> bytes;
+        if (Count < 8)
+        {
+            bytes = CurrentNode.Encode();
+            for (var i = 0; i < 7; i++)
+            {
+                bytes = bytes.Concat(CurrentNode.Encode());
+            }
+        }
+        else
+        {
+            bytes = this.First().Encode();
+            bytes = this.Skip(1).Take(7).Aggregate(bytes, (current, node) => current.Concat(node.Encode()));
+        }
         return bytes.ToArray();
     }
 

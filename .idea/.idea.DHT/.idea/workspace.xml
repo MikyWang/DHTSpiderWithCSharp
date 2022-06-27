@@ -8,25 +8,36 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dfd178d6-d54d-4914-907a-c38c8135f5f6" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/DHTClientBase.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DHTExtentions.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DHTListener.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DHTMessage.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Node.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ResponseClient.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/RouteTable.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TransferCenter.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnouncePeerResponseClient.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BootstrapFilterClient.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FindNodeResponseClient.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GetPeersResponseClient.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JoinDHTClient.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LoopQueue.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PingResponseClient.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TokenManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.DHT/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.DHT/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BEncode.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BEncode.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DhtClient.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DHTClientBase.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DHTClientBase.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DHTExtentions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DHTExtentions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DHTListener.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DHTListener.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/KRPC.cs" beforeDir="false" afterPath="$PROJECT_DIR$/KRPC.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/KRPCNameAttribute.cs" beforeDir="false" afterPath="$PROJECT_DIR$/KRPCNameAttribute.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Node.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Node.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ResponseClient.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/RouteTable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RouteTable.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TransferCenter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TransferCenter.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Utils.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Utils.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/7b0f59c9d2294507bcba9ed45a3d35cd3cc00/1a/1067ddbd/IPEndPoint.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/7b0f59c9d2294507bcba9ed45a3d35cd3cc00/cc/a58122ff/EndPoint.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -52,6 +63,7 @@
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;CodeLensConfigurable&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -88,8 +100,20 @@
       <workItem from="1654746031785" duration="5706000" />
       <workItem from="1654759905852" duration="11511000" />
       <workItem from="1654866219539" duration="50110000" />
-      <workItem from="1655427534950" duration="9294000" />
+      <workItem from="1655427534950" duration="11701000" />
+      <workItem from="1655451509727" duration="5037000" />
+      <workItem from="1655456570128" duration="734000" />
+      <workItem from="1655457671162" duration="68491000" />
+      <workItem from="1655900255905" duration="1824000" />
     </task>
+    <task id="LOCAL-00001" summary="增加监听器和数据处理中心。">
+      <created>1655437671271</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1655437671271</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -111,11 +135,15 @@
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+    <MESSAGE value="增加监听器和数据处理中心。" />
+    <option name="LAST_COMMIT_MESSAGE" value="增加监听器和数据处理中心。" />
   </component>
   <component name="XDebuggerManager">
     <pin-to-top-manager>
       <pinned-members>
         <PinnedItemInfo parentTag="Frame#Program.&lt;Main&gt;$" memberName="res" />
+        <PinnedItemInfo parentTag="Type#System.Net.Sockets.Socket" memberName="_closeTimeout" />
+        <PinnedItemInfo parentTag="Frame#DHT.ResponseClient+&lt;&gt;c__DisplayClass7_0.&lt;JoinDHT&gt;b__0" memberName="krpc" />
       </pinned-members>
     </pin-to-top-manager>
   </component>

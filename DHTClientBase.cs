@@ -1,41 +1,45 @@
 using System.Collections.Concurrent;
 using System.Net;
 using System.Net.Sockets;
+using System.Text;
 namespace DHT;
 
-public abstract class DHTClientBase : IDisposable
+public abstract class DHTClientBase
 {
-    protected static readonly Dictionary<string, int> Bootstraps = new()
+    protected BlockingCollection<DHTMessage> Messages { get; }
+    protected readonly Socket Socket;
+    protected KRPC Context;
+    protected abstract void HandlerMessage(DHTMessage message);
+    protected DHTClientBase(DHTListener dhtListener, in BlockingCollection<DHTMessage> messages)
     {
-        { "router.utorrent.com", 6881 },
-        { "router.bittorrent.com", 6881 },
-        { "dht.transmissionbt.com", 6881 }
-    };
-    protected BlockingCollection<KRPC> Messages { get; }
-    protected readonly Socket _socket;
-    protected abstract void HandlerMessage(KRPC krpc);
-    protected IPEndPoint LocalIPEndPoint { get; }
-    protected DHTClientBase(BlockingCollection<KRPC> messages)
-    {
+        Socket = dhtListener.Socket;
         Messages = messages;
-        LocalIPEndPoint = new IPEndPoint(IPAddress.Parse(Utils.GetLocalIP()), 0);
-        _socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
-        _socket.Bind(LocalIPEndPoint);
-        _ = HandlerMessages();
+        Context = new KRPC();
     }
-    private Task HandlerMessages()
+    public Task HandlerMessages()
     {
         return Task.Run(() =>
         {
-            foreach (var krpc in Messages.GetConsumingEnumerable())
+            foreach (var message in Messages.GetConsumingEnumerable())
             {
-                HandlerMessage(krpc);
+                try
+                {
+                    HandlerMessage(message);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                }
             }
         });
     }
-
-    public void Dispose()
+    protected void Send(KRPC krpc, string ip, int port)
     {
-        _socket.Close();
+        if (ip == string.Empty || !Utils.IsValidPort(port)) return;
+
+        var remoteEndPoint = new IPEndPoint(IPAddress.Parse(ip), port);
+        var content = krpc.ConvertToBEncode().ToString();
+        var bytes = content.GetBytes();
+        Socket.SendTo(bytes, 0, bytes.Length, SocketFlags.None, remoteEndPoint);
     }
 }

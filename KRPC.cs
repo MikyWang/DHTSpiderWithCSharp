@@ -17,15 +17,15 @@ public class KRPC
     public Dictionary<string, object> Response { get; set; } = new();
     [KRPCName("e")]
     public ArrayList Error { get; set; } = new();
-    public Dictionary<string, string> Mapping { get; private set; } = new(6);
+    public static Dictionary<string, string> Mapping { get; } = new(6);
 
     public bool IsRequest => MsgType == "q";
     public bool IsResponse => MsgType == "r";
     public bool IsError => MsgType == "e";
 
-    public KRPC()
+    static KRPC()
     {
-        var pInfo = GetType().GetProperties();
+        var pInfo = typeof(KRPC).GetProperties();
         foreach (var propertyInfo in pInfo)
         {
             var attrs = propertyInfo.GetCustomAttributes(typeof(KRPCNameAttribute), false);
@@ -36,58 +36,24 @@ public class KRPC
         }
     }
 
-    public KRPC SendPing(string id)
+    public KRPC SendPing(byte[] id)
     {
-        var bytes = new byte[2];
-        using (var ctx = RandomNumberGenerator.Create())
-        {
-            ctx.GetBytes(bytes);
-        }
-        id = Utils.HexToString(id);
-        TransactionID = Encoding.ASCII.GetString(bytes);
-
+        TransactionID = Utils.GenerateTransactionID().GetString();
         MsgType = "q";
         Request = "ping";
-        if (Body.ContainsKey("id"))
-        {
-            Body["id"] = id;
-        }
-        else
-        {
-            Body.Add("id", id);
-        }
+        var sID = id.GetString();
+        Body.SetValue("id", sID);
         return this;
     }
 
     public KRPC FindNode(byte[] id)
     {
-
-        var bytes = new byte[2];
-        using (var ctx = RandomNumberGenerator.Create())
-        {
-            ctx.GetBytes(bytes);
-        }
-        TransactionID = Encoding.ASCII.GetString(bytes);
+        TransactionID = Utils.GenerateTransactionID().GetString();
         MsgType = "q";
         Request = "find_node";
-        var sID = Encoding.ASCII.GetString(id);
-        if (Body.ContainsKey("id"))
-        {
-            Body["id"] = sID;
-        }
-        else
-        {
-            Body.Add("id", sID);
-        }
-        if (Body.ContainsKey("target"))
-        {
-            Body["target"] = Encoding.ASCII.GetString(new Node().Encode().ToArray());
-        }
-        else
-        {
-            Body.Add("target", Encoding.ASCII.GetString(new Node().Encode().ToArray()));
-        }
-
+        var sID = id.GetString();
+        Body.SetValue("id", sID);
+        Body.SetValue("target", new Node().ID.GetString());
         return this;
     }
 
