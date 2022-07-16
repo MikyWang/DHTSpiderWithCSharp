@@ -8,24 +8,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dfd178d6-d54d-4914-907a-c38c8135f5f6" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/AnnouncePeerResponseClient.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BootstrapFilterClient.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FindNodeResponseClient.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GetPeersResponseClient.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JoinDHTClient.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/LoopQueue.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PingResponseClient.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TokenManager.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/KBucketNode.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.DHT/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.DHT/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BEncode.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BEncode.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AnnouncePeerResponseClient.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AnnouncePeerResponseClient.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BootstrapFilterClient.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BootstrapFilterClient.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DHTClientBase.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DHTClientBase.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DHTExtentions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DHTExtentions.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DHTListener.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DHTListener.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FindNodeResponseClient.cs" beforeDir="false" afterPath="$PROJECT_DIR$/FindNodeResponseClient.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GetPeersResponseClient.cs" beforeDir="false" afterPath="$PROJECT_DIR$/GetPeersResponseClient.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JoinDHTClient.cs" beforeDir="false" afterPath="$PROJECT_DIR$/JoinDHTClient.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/KRPC.cs" beforeDir="false" afterPath="$PROJECT_DIR$/KRPC.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KRPCNameAttribute.cs" beforeDir="false" afterPath="$PROJECT_DIR$/KRPCNameAttribute.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LoopQueue.cs" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Node.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Node.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PingResponseClient.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PingResponseClient.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ResponseClient.cs" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/RouteTable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RouteTable.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TransferCenter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TransferCenter.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Utils.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Utils.cs" afterDir="false" />
@@ -36,6 +33,10 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/287276a129fc45e8b7746e0f54981a36b51800/0e/64123f32/List`1.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/287276a129fc45e8b7746e0f54981a36b51800/1d/4ca71512/Byte.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/287276a129fc45e8b7746e0f54981a36b51800/60/22597d33/Dictionary`2.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/287276a129fc45e8b7746e0f54981a36b51800/a5/7005dd0e/Queue`1.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/7b0f59c9d2294507bcba9ed45a3d35cd3cc00/1a/1067ddbd/IPEndPoint.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/7b0f59c9d2294507bcba9ed45a3d35cd3cc00/cc/a58122ff/EndPoint.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
@@ -63,7 +64,7 @@
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;CodeLensConfigurable&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -105,6 +106,17 @@
       <workItem from="1655456570128" duration="734000" />
       <workItem from="1655457671162" duration="68491000" />
       <workItem from="1655900255905" duration="1824000" />
+      <workItem from="1656313765914" duration="4065000" />
+      <workItem from="1656431476919" duration="8856000" />
+      <workItem from="1656613579731" duration="1799000" />
+      <workItem from="1656640276626" duration="30212000" />
+      <workItem from="1656755751397" duration="18728000" />
+      <workItem from="1656986527518" duration="7277000" />
+      <workItem from="1657155847519" duration="2412000" />
+      <workItem from="1657177216138" duration="15741000" />
+      <workItem from="1657716736573" duration="14788000" />
+      <workItem from="1657807496370" duration="2530000" />
+      <workItem from="1657950320845" duration="4553000" />
     </task>
     <task id="LOCAL-00001" summary="增加监听器和数据处理中心。">
       <created>1655437671271</created>
@@ -113,7 +125,14 @@
       <option name="project" value="LOCAL" />
       <updated>1655437671271</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="可以接收到GetPeers">
+      <created>1656313790013</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1656313790013</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -136,14 +155,19 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
     <MESSAGE value="增加监听器和数据处理中心。" />
-    <option name="LAST_COMMIT_MESSAGE" value="增加监听器和数据处理中心。" />
+    <MESSAGE value="可以接收到GetPeers" />
+    <option name="LAST_COMMIT_MESSAGE" value="可以接收到GetPeers" />
   </component>
   <component name="XDebuggerManager">
     <pin-to-top-manager>
       <pinned-members>
+        <PinnedItemInfo parentTag="Type#DHT.KBucketNode" memberName="RightChild" />
         <PinnedItemInfo parentTag="Frame#Program.&lt;Main&gt;$" memberName="res" />
+        <PinnedItemInfo parentTag="Type#DHT.RouteTable" memberName="Root" />
         <PinnedItemInfo parentTag="Type#System.Net.Sockets.Socket" memberName="_closeTimeout" />
         <PinnedItemInfo parentTag="Frame#DHT.ResponseClient+&lt;&gt;c__DisplayClass7_0.&lt;JoinDHT&gt;b__0" memberName="krpc" />
+        <PinnedItemInfo parentTag="Type#DHT.KBucketNode" memberName="Bucket" />
+        <PinnedItemInfo parentTag="Type#DHT.KBucketNode" memberName="LeftChild" />
       </pinned-members>
     </pin-to-top-manager>
   </component>

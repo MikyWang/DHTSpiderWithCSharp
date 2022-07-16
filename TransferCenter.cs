@@ -13,8 +13,9 @@ public sealed class TransferCenter : IDisposable
     public BlockingCollection<DHTMessage> FindNodeRequestMessages { get; } = new();
     public BlockingCollection<DHTMessage> GetPeersRequestMessages { get; } = new();
     public BlockingCollection<DHTMessage> AnnouncePeerRequestMessages { get; } = new();
+    public BlockingCollection<Node> KnownNodes { get; } = new();
     public Dictionary<string, int> ValidBootstraps { get; } = new();
-    private KRPC _context = new KRPC();
+    private KRPC _context = new();
     private TransferCenter() { }
     public void DealMessage()
     {
@@ -35,7 +36,7 @@ public sealed class TransferCenter : IDisposable
             }
             catch (Exception e)
             {
-                continue;
+                Console.WriteLine(e);
             }
 
         }
@@ -63,7 +64,6 @@ public sealed class TransferCenter : IDisposable
     }
     public void Dispose()
     {
-        Table.Dispose();
         DHTMessages.Dispose();
         ResponseMessages.Dispose();
         SendPingRequestMessages.Dispose();

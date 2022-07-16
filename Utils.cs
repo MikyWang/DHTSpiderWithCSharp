@@ -20,29 +20,38 @@ public class Utils
     {
         return port is > 1 and < 1 << 16;
     }
-    public static byte[] GenerateTransactionID()
+    public static IEnumerable<byte> GenerateID(int length)
     {
-        var bytes = new byte[2];
+        var bytes = new byte[length];
         using var ctx = RandomNumberGenerator.Create();
         ctx.GetBytes(bytes);
         return bytes;
     }
-  
-    public static string GetPublicIP()
+    public static async Task<string> GetPublicIP()
     {
-        string tempip = "";
-        WebRequest request = WebRequest.Create("http://pv.sohu.com/cityjson?ie=utf-8");
-        request.Timeout = 10000;
-        WebResponse response = request.GetResponse();
-        Stream resStream = response.GetResponseStream();
-        StreamReader sr = new StreamReader(resStream, System.Text.Encoding.Default);
-        string htmlinfo = sr.ReadToEnd();
-        Regex r = new Regex("((25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)\\.){3}(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|[1-9])", RegexOptions.None);
-        Match mc = r.Match(htmlinfo);
-        tempip = mc.Groups[0].Value;
+        var client = new HttpClient();
+        var response = await client.GetAsync("http://pv.sohu.com/cityjson?ie=utf-8");
+        var resStream = await response.Content.ReadAsStreamAsync();
+        var sr = new StreamReader(resStream, Encoding.Default);
+        var html = await sr.ReadToEndAsync();
+        var r = new Regex("((25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)\\.){3}(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|[1-9])", RegexOptions.None);
+        var mc = r.Match(html);
+        var ip = mc.Groups[0].Value;
         resStream.Close();
         sr.Close();
-        return tempip;
+        return ip;
     }
+
+    public static void CreateDHT(int port = 6881)
+    {
+        var dhtListener = new DHTListener(TransferCenter.Instance.DHTMessages, port);
+        dhtListener.Listen();
+        new JoinDHTClient(dhtListener, TransferCenter.Instance.ResponseMessages).HandlerMessages();
+        new PingResponseClient(dhtListener, TransferCenter.Instance.SendPingRequestMessages).HandlerMessages();
+        new FindNodeResponseClient(dhtListener, TransferCenter.Instance.FindNodeRequestMessages).HandlerMessages();
+        new GetPeersResponseClient(dhtListener, TransferCenter.Instance.GetPeersRequestMessages).HandlerMessages();
+        new AnnouncePeerResponseClient(dhtListener, TransferCenter.Instance.AnnouncePeerRequestMessages).HandlerMessages();
+    }
+
 
 }

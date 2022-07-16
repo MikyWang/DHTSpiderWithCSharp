@@ -6,8 +6,8 @@ namespace DHT;
 
 public class DHTListener : IDisposable
 {
-    public string IP { get; private set; }
-    public int Port { get; private set; }
+    public string IP { get; }
+    public int Port { get; }
     public Socket Socket { get; }
 
     private EndPoint? _remotePoint;

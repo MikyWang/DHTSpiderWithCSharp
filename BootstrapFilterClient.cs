@@ -32,14 +32,14 @@ public class BootstrapFilter : IDisposable
             var remoteAddr = remoteEntry.AddressList.Where(a => a.AddressFamily == AddressFamily.InterNetwork).ToArray();
             foreach (var ipAddress in remoteAddr)
             {
-                if (!isValidBootstrap(ipAddress, bootstrap.Value)) continue;
+                if (!IsValidBootstrap(ipAddress, bootstrap.Value)) continue;
                 Console.WriteLine($"启动节点IP为{ipAddress}:{bootstrap.Value}");
                 _bootstrapStation.Add(ipAddress.ToString(), bootstrap.Value);
             }
         }
     }
 
-    private bool isValidBootstrap(IPAddress ipAddress, int port)
+    private bool IsValidBootstrap(IPAddress ipAddress, int port)
     {
         try
         {

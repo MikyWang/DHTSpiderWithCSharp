@@ -36,9 +36,9 @@ public class KRPC
         }
     }
 
-    public KRPC SendPing(byte[] id)
+    public KRPC SendPing(IEnumerable<byte> id)
     {
-        TransactionID = Utils.GenerateTransactionID().GetString();
+        TransactionID = Utils.GenerateID(2).GetString();
         MsgType = "q";
         Request = "ping";
         var sID = id.GetString();
@@ -46,11 +46,22 @@ public class KRPC
         return this;
     }
 
-    public KRPC FindNode(byte[] id)
+    public KRPC FindNode(IEnumerable<byte> id)
     {
-        TransactionID = Utils.GenerateTransactionID().GetString();
+        TransactionID = Utils.GenerateID(2).GetString();
         MsgType = "q";
         Request = "find_node";
+        var sID = id.GetString();
+        Body.SetValue("id", sID);
+        Body.SetValue("target", new Node().ID.GetString());
+        return this;
+    }
+
+    public KRPC SampleInfoHashes(IEnumerable<byte> id)
+    {
+        TransactionID = Utils.GenerateID(2).GetString();
+        MsgType = "q";
+        Request = "sample_infohashes";
         var sID = id.GetString();
         Body.SetValue("id", sID);
         Body.SetValue("target", new Node().ID.GetString());

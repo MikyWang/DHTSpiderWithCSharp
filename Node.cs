@@ -2,11 +2,12 @@ using System.Security.Cryptography;
 using System.Text;
 namespace DHT;
 
-public class Node : IEquatable<Node>
+public class Node : IComparable<Node>
 {
     public byte[] ID { get; private set; }
     public byte[] IP { get; private set; }
     public byte[] Port { get; private set; }
+    public DateTime LastModifyDateTime { get; set; } = DateTime.Now;
 
     public string DecodeID => string.Join("", ID.Select(x => $"{x:x2}"));
     public string DecodeIP => string.Join(".", IP);
@@ -25,7 +26,7 @@ public class Node : IEquatable<Node>
         IP = localIP.Split(".").Select(x => (byte)int.Parse(x)).ToArray();
         Port = BitConverter.GetBytes(port);
     }
-    public Node( string ip, int port = 6881)
+    public Node(string ip, int port = 6881)
     {
         var random = new byte[20];
         using (var ctx = RandomNumberGenerator.Create())
@@ -33,6 +34,12 @@ public class Node : IEquatable<Node>
             ctx.GetBytes(random);
         }
         ID = SHA1.Create().ComputeHash(random);
+        IP = ip.Split(".").Select(x => (byte)int.Parse(x)).ToArray();
+        Port = BitConverter.GetBytes(port);
+    }
+    public Node(byte[] id, string ip, int port)
+    {
+        ID = id;
         IP = ip.Split(".").Select(x => (byte)int.Parse(x)).ToArray();
         Port = BitConverter.GetBytes(port);
     }
@@ -45,6 +52,11 @@ public class Node : IEquatable<Node>
         Array.Reverse(Port);
     }
 
+    public byte[] Distance(Node dest)
+    {
+        return ID.XOR(dest.ID);
+    }
+
     public IEnumerable<byte> Encode()
     {
         if (Port.Clone() is not byte[] port)
@@ -54,32 +66,12 @@ public class Node : IEquatable<Node>
         Array.Reverse(port);
         return ID.Concat(IP).Concat(port[2..]);
     }
-
     public override string ToString()
     {
         return $"{DecodeID}{DecodeIP}/{DecodePort}";
     }
-
-    public bool Equals(Node? other)
+    public int CompareTo(Node? other)
     {
-        if (ReferenceEquals(null, other))
-            return false;
-        if (ReferenceEquals(this, other))
-            return true;
-        return ID.Equals(other.ID);
-    }
-    public override bool Equals(object? obj)
-    {
-        if (ReferenceEquals(null, obj))
-            return false;
-        if (ReferenceEquals(this, obj))
-            return true;
-        if (obj.GetType() != this.GetType())
-            return false;
-        return Equals((Node)obj);
-    }
-    public override int GetHashCode()
-    {
-        return ID.GetHashCode();
+        return LastModifyDateTime.CompareTo(other?.LastModifyDateTime);
     }
 }

@@ -22,14 +22,7 @@ public abstract class DHTClientBase
         {
             foreach (var message in Messages.GetConsumingEnumerable())
             {
-                try
-                {
-                    HandlerMessage(message);
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e);
-                }
+                HandlerMessage(message);
             }
         });
     }

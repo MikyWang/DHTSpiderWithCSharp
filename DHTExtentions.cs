@@ -5,12 +5,31 @@ namespace DHT;
 
 public static class DHTExtentions
 {
-    public static string PrintHex(this byte[] src)
+    public static string PrintHex(this IEnumerable<byte> src)
     {
         var dst = new StringBuilder();
         dst = src.Aggregate(dst, (s, b) => s.Append($"{b:X2}"));
         return dst.ToString();
     }
+
+    public static bool IsZero(this byte[] source)
+    {
+        return Array.FindIndex(source, b => b != 0) < 0;
+    }
+
+    public static byte[] XOR(this byte[] source, byte[] dest)
+    {
+        if (source.Length != dest.Length) throw new Exception("异或的字节数组长度必须一致!");
+
+        var length = source.Length;
+        var dis = new byte[length];
+        for (var i = 0; i < length; i++)
+        {
+            dis[i] = (byte)(source[i] ^ dest[i]);
+        }
+        return dis;
+    }
+
     public static byte[] GetBytes(this string src)
     {
         IEnumerable<byte> bytes = new[] { Convert.ToByte(src[0]) };
