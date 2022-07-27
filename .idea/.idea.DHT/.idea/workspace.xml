@@ -9,10 +9,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dfd178d6-d54d-4914-907a-c38c8135f5f6" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.DHT/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.DHT/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DHTExtentions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DHTExtentions.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JoinDHTClient.cs" beforeDir="false" afterPath="$PROJECT_DIR$/JoinDHTClient.cs" afterDir="false" />
+    <list default="true" id="dfd178d6-d54d-4914-907a-c38c8135f5f6" name="Changes" comment="优化代码">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -137,7 +135,7 @@
       <workItem from="1657177216138" duration="15741000" />
       <workItem from="1657716736573" duration="14788000" />
       <workItem from="1657807496370" duration="2530000" />
-      <workItem from="1657950320845" duration="28055000" />
+      <workItem from="1657950320845" duration="28138000" />
     </task>
     <task id="LOCAL-00001" summary="增加监听器和数据处理中心。">
       <created>1655437671271</created>
@@ -160,7 +158,14 @@
       <option name="project" value="LOCAL" />
       <updated>1657955245328</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="优化代码">
+      <created>1658932470555</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1658932470555</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -185,7 +190,8 @@
     <MESSAGE value="增加监听器和数据处理中心。" />
     <MESSAGE value="可以接收到GetPeers" />
     <MESSAGE value="添加sample_infohashes方法，更高效的获取infohash。&#10;控制台版本基本完成。" />
-    <option name="LAST_COMMIT_MESSAGE" value="添加sample_infohashes方法，更高效的获取infohash。&#10;控制台版本基本完成。" />
+    <MESSAGE value="优化代码" />
+    <option name="LAST_COMMIT_MESSAGE" value="优化代码" />
   </component>
   <component name="XDebuggerManager">
     <pin-to-top-manager>
