@@ -19,12 +19,9 @@ public class JoinDHTClient : DHTClientBase
             if (!krpc.Response.ContainsKey("nodes")) return;
             if (krpc.Response["nodes"] is not string content) return;
             if (krpc.Response["id"] is not string { Length: 20 } sID) return;
-            if (krpc.Response.ContainsKey("samples"))
+            if (krpc.Response.ContainsKey("samples") && krpc.Response["samples"] is string infohashes)
             {
-                if (krpc.Response["samples"] is string infohashes)
-                {
-                    HandlerInfoHashes(infohashes.GetBytes());
-                }
+                HandlerInfoHashes(infohashes.GetBytes());
             }
             var id = sID.GetBytes();
             var knownNode = new Node(id, message.IP, message.Port);
@@ -45,7 +42,7 @@ public class JoinDHTClient : DHTClientBase
         }
     }
 
-    private void HandlerInfoHashes(byte[] infohashes)
+    private static void HandlerInfoHashes(byte[] infohashes)
     {
         for (var i = 0; i < infohashes.Length; i += 20)
         {

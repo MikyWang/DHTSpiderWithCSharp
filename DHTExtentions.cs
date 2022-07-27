@@ -7,16 +7,14 @@ public static class DHTExtentions
 {
     public static string PrintHex(this IEnumerable<byte> src)
     {
-        var dst = new StringBuilder();
-        dst = src.Aggregate(dst, (s, b) => s.Append($"{b:X2}"));
-        return dst.ToString();
+        return string.Join("", src.Select(b => $"{b:X2}"));
     }
 
     public static bool IsZero(this byte[] source)
     {
         return Array.FindIndex(source, b => b != 0) < 0;
     }
-
+    
     public static byte[] XOR(this byte[] source, byte[] dest)
     {
         if (source.Length != dest.Length) throw new Exception("异或的字节数组长度必须一致!");
@@ -32,15 +30,11 @@ public static class DHTExtentions
 
     public static byte[] GetBytes(this string src)
     {
-        IEnumerable<byte> bytes = new[] { Convert.ToByte(src[0]) };
-        bytes = src.Skip(1).Aggregate(bytes, (b, ch) => b.Concat(new[] { Convert.ToByte(ch) }));
-        return bytes.ToArray();
+        return src.Select(Convert.ToByte).ToArray();
     }
     public static string GetString(this IEnumerable<byte> src)
     {
-        var dst = new StringBuilder();
-        dst = src.Aggregate(dst, (s, b) => s.Append(Convert.ToChar(b)));
-        return dst.ToString();
+        return string.Join("", src.Select(Convert.ToChar));
     }
     public static ref KRPC ConvertToKRPC(this BEncode bEncode, ref KRPC krpc)
     {
